@@ -1,0 +1,257 @@
+<?php
+
+namespace App\Http\Controllers\Foods;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Food\Food;
+use App\Models\Food\Cart;
+use Auth;
+use Session;
+use App\Models\Food\Checkout;
+use App\Models\Food\Booking;
+
+
+class FoodsController extends Controller
+{
+
+
+
+
+
+
+
+    public function foodDetails($id){
+
+
+        $foodItem =Food::find($id);
+
+
+
+        //verfying if user added to cart
+        $cartVerifying =Cart::where('food_id',$id)
+        ->where ('user_id',Auth::user()->id)->count();
+        return view('foods.food-details',compact('foodItem','cartVerifying'));
+        
+
+    }
+
+
+    public function cart(Request $request, $id){
+        $cart =Cart::create([
+            "user_id" =>$request->user_id,
+            "food_id" =>$request->food_id,
+            "name" =>$request->name,
+            "image" =>$request->image,
+            "price" =>$request->price,
+        ]);
+
+        if($cart){
+            return redirect()->route('food.details',$id)->with(['success' =>'Item added to cart successfully']);
+        }
+
+        // return view('foods.food-details',compact('foodItem'));
+        
+
+    }
+    public function displayCartItems(){
+        if (auth()->user()) {
+
+        $cartItems =Cart::where('user_id',Auth::user()->id)->get();
+
+        //display price
+        $price =Cart::where('user_id',Auth::user()->id)->sum('price');
+
+
+
+        return view('foods.cart',compact('cartItems','price'));
+
+
+
+
+
+
+
+
+
+        } else{
+            abort('404');
+        }
+
+
+
+
+           
+
+    }
+    public function deleteCartItems($id){
+
+
+        //display cart items
+        $deleteItem =Cart::where('user_id',Auth::user()->id)
+         ->where('food_id',$id);
+        
+        $deleteItem ->delete();
+
+
+        if($deleteItem){
+            return redirect()->route('food.display.cart')->with(['delete' =>'Item deleted from cart successfully']);
+        }
+
+
+        
+        
+
+    }
+    public function prepareCheckout (Request $request){
+        $value =$request-> price;
+        $price = Session::put('price',$value);
+        $newPrice = Session::get('price');
+
+        if($newPrice > 0 ){
+            if (Session::get('price')==0) {
+
+
+                abort('403');
+                
+            }else{
+                return redirect()->route('foods.checkout');
+
+            }
+            
+
+        }
+
+        
+
+    }
+    public function checkout (){
+        if (Session::get('price')==0) {
+
+
+            abort('403');
+            
+        } else{
+            return view('foods.checkout');
+
+        }
+
+
+        
+
+        
+
+    }
+    public function storeCheckout(Request $request){
+
+        $checkout =Checkout::create([
+            "name" =>$request->name,
+            "email" =>$request->email,
+            "town" =>$request->town,
+            "country" =>$request->country,
+            "zipcode" =>$request->zipcode,
+            "phone_number" =>$request->phone_number,
+            "address" =>$request->address,
+            "user_id" =>Auth::user()->id,
+            "price" =>$request->price,
+        ]);
+
+        //echo"go to paypal";
+
+        if($checkout){
+            if (Session::get('price')==0) {
+
+
+                abort('403');
+                
+            }{
+                return redirect()->route('foods.pay');
+
+            }
+        }
+
+        //return view('foods.food-details',compact('foodItem'));
+        
+
+    }
+    public function payWithPaypal (){
+        
+        if (Session::get('price')==0) {
+
+
+            abort('403');
+            
+        } else{
+            return view('foods.pay');
+
+        }
+
+        
+
+        
+
+    }
+    public function success (){
+        //display cart items
+        $deleteItem =Cart::where('user_id',Auth::user()->id);
+        
+        $deleteItem ->delete();
+        
+
+        if($deleteItem){
+            
+            if (Session::get('price')==0) {
+
+
+                abort('403');
+                
+            } else{
+                Session::forget('price');
+                
+                return view('foods.success')->with(['success' =>'you paid for the product successfully']);
+
+
+            }
+
+        }
+    
+    
+    }
+    public function bookingTables(Request $request){
+        $currentDate =date("m/d/Y h:i:sa");
+
+        if($request->date == $currentDate OR $request->date < $currentDate ){
+            return redirect()->route('home')->with(['error'=>'you  cannot book with the current date or a date in the past']);
+
+        }else{
+            $bookingTables =Booking::create([
+                "user_id" =>Auth::user()->id,
+                "name" =>$request->name,
+                "email" =>$request->email,
+                "date" =>$request->date,
+                "num_people" =>$request->num_people,
+                "spe_request" =>$request->spe_request,
+                
+            ]);
+            if($bookingTables){
+                return redirect()->route('home')->with(['booked'=>'you  booked a table successfully']);          
+            
+            }
+
+        }
+
+        
+
+        
+
+        
+
+        
+
+    }
+
+    
+    
+    
+    
+}
