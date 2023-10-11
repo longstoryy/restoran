@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Food\Food;
+use App\Models\Food\Review;
 
 
 class HomeController extends Controller
@@ -35,6 +36,31 @@ class HomeController extends Controller
         $dinnerFoods = Food::select()->take(4)
         ->where('category','Dinner')->orderBy('id','desc')->get();
 
-        return view('home',compact('breakfastFoods','launchFoods','dinnerFoods'));
+        $reviews = Review::select()->take(4)
+        ->orderBy('id','desc')->get();
+
+        return view('home',compact('breakfastFoods','launchFoods','dinnerFoods','reviews'));
+    }
+
+
+    public function about()
+    {
+
+
+        return view('pages.about');
+    }
+
+    public function services()
+    {
+
+
+        return view('pages.services');
+    }
+
+    public function contact()
+    {
+
+
+        return view('pages.contact');
     }
 }

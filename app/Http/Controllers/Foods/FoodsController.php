@@ -29,9 +29,14 @@ class FoodsController extends Controller
 
 
         //verfying if user added to cart
-        $cartVerifying =Cart::where('food_id',$id)
-        ->where ('user_id',Auth::user()->id)->count();
-        return view('foods.food-details',compact('foodItem','cartVerifying'));
+        if(auth()->user()){
+            $cartVerifying =Cart::where('food_id',$id)
+            ->where ('user_id',Auth::user()->id)->count();
+            return view('foods.food-details',compact('foodItem','cartVerifying'));
+        } else{
+            return view('foods.food-details',compact('foodItem'));
+
+        }
         
 
     }
