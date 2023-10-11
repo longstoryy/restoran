@@ -218,12 +218,29 @@ class FoodsController extends Controller
     
     }
     public function bookingTables(Request $request){
+
+        Request ()->validate ([
+
+        "name"=> "required|max:40",
+        "email"=> "required|max:40",
+        "date"=> "required",
+        "num_people"=> "required",
+        "spe_request"=> "required",
+
+        ]);
+
         $currentDate =date("m/d/Y h:i:sa");
 
-        if($request->date == $currentDate OR $request->date < $currentDate ){
-            return redirect()->route('home')->with(['error'=>'you  cannot book with the current date or a date in the past']);
+        if($request->name !=="" OR $request-> email !=="" OR $request-> date  !==""OR $request-> num_people !==""OR $request-> spec_request !=="" ){
+            if($request->date == $currentDate OR $request->date < $currentDate ){
 
-        }else{
+                return redirect()->route('home')->with(['error'=>'you  cannot book with the current date or a date in the past']);
+    
+            }else{
+
+        }
+
+        
             $bookingTables =Booking::create([
                 "user_id" =>Auth::user()->id,
                 "name" =>$request->name,
@@ -238,16 +255,31 @@ class FoodsController extends Controller
             
             }
 
+        }else{
+            return redirect()->route('empty')->with(['empty'=>'one or more inputs are empty']);          
+
         }
 
         
+    }
 
-        
 
-        
 
-        
 
+    public function menu (){
+
+
+        $breakfastFoods = Food::select()->take(4)
+        ->where('category','Breakfast')->orderBy('id','desc')->get();
+
+        $launchFoods = Food::select()->take(4)
+        ->where('category','Launch')->orderBy('id','desc')->get();
+
+        $dinnerFoods = Food::select()->take(4)
+        ->where('category','Dinner')->orderBy('id','desc')->get();
+
+        return view('foods.menu',compact('breakfastFoods','launchFoods','dinnerFoods'));
+ 
     }
 
     

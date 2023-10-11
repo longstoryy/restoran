@@ -44,3 +44,14 @@ Route::get('foods/success', [App\Http\Controllers\Foods\FoodsController::class, 
 //booking tables
 Route::post('foods/booking', [App\Http\Controllers\Foods\FoodsController::class, 'bookingTables'])->name('foods.booking.table');
 
+//menu
+Route::get('foods/menu', [App\Http\Controllers\Foods\FoodsController::class, 'menu'])->name('foods.menu');
+
+//users
+Route::get('users/all-bookings', [App\Http\Controllers\Users\UsersController::class, 'getBookings'])->name('users.bookings');
+Route::get('users/all-orders', [App\Http\Controllers\Users\UsersController::class, 'getOrders'])->name('users.orders');
+
+//reviews
+Route::get('users/write-review', [App\Http\Controllers\Users\UsersController::class, 'viewReview'])->name('users.review.create');
+Route::post('users/write-review', [App\Http\Controllers\Users\UsersController::class, 'submitReview'])->name('users.review.store');
+

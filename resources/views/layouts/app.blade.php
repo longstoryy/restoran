@@ -59,7 +59,7 @@
                         <a href="{{route('home')}}" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="menu.html" class="nav-item nav-link">Menu</a>
+                        <a href="{{route('foods.menu')}}" class="nav-item nav-link">Menu</a>
 
                       
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -82,6 +82,13 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                
+                                        <a class="dropdown-item" href="{{ route('users.bookings') }}">
+                                           My Bookings
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('users.orders') }}">
+                                            My Orders
+                                         </a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">

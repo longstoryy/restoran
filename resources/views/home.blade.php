@@ -228,6 +228,11 @@
             <p class="alert {{Session::get('alert-class','alert-success')}}">{{Session::get('booked')}}</p>
             @endif
         </div>
+        <div class="container">
+            @if(Session::has('empty'))
+            <p class="alert {{Session::get('alert-class','alert-danger')}}">{{Session::get('empty')}}</p>
+            @endif
+        </div>
 
 
         <!-- Reservation Start -->
@@ -251,18 +256,33 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" name="name" class="form-control" id="name" placeholder="Your Name">
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="email" name="email"  class="form-control" id="email" placeholder="Your Email">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date3" data-target-input="nearest">
                                         <input type="text"  name="date" class="form-control datetimepicker-input" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                                        @error('date')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                         <label for="datetime">Date & Time</label>
                                     </div>
                                 </div>
@@ -273,15 +293,27 @@
                                           <option value="2">People 2</option>
                                           <option value="3">People 3</option>
                                         </select>
+                                        @error('num_people')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                         <label for="select1">No Of People</label>
                                       </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea  name="spe_request" class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                        
                                         <label for="message">Special Request</label>
                                     </div>
+                                    @error('spe_request')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                 </div>
+                                
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" name="submit" type="submit">Book Now</button>
                                 </div>
