@@ -24,6 +24,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
 Route::get('/services', [App\Http\Controllers\HomeController::class, 'services'])->name('services');
 Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
+Route::post('/send-email', [App\Http\Controllers\HomeController::class, 'sendEmail']);
+
 
 
 
@@ -67,5 +69,41 @@ Route::group(["prefix"=> "user"],function(){
 
 });
 
+Route::get('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'viewLogin'])->name('view.login')->middleware('checkforauth');
+Route::post('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'checkLogin'])->name('check.login');
 
 
+
+Route::group(["prefix"=> "admin","middleware"=>"auth:admin"],function(){
+    Route::get('index', [App\Http\Controllers\Admins\AdminsController::class, 'index'])->name('admins.dashboard');
+
+    //admin
+
+    Route::get('all-admins', [App\Http\Controllers\Admins\AdminsController::class, 'allAdmins'])->name('admins.all');
+    Route::get('admins', [App\Http\Controllers\Admins\AdminsController::class, 'createAdmins'])->name('admins.create');
+    Route::post('admins', [App\Http\Controllers\Admins\AdminsController::class, 'storeAdmins'])->name('admins.store');
+
+    //orders
+    Route::get('all-orders', [App\Http\Controllers\Admins\AdminsController::class, 'allOrders'])->name('orders.all');
+    Route::get('edit-orders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editOrders'])->name('orders.edit');
+    Route::post('edit-orders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateOrders'])->name('orders.update');
+    Route::get('delete-orders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteOrders'])->name('orders.delete');
+
+    //bookings
+    Route::get('all-bookings', [App\Http\Controllers\Admins\AdminsController::class, 'allBookings'])->name('bookings.all');
+    Route::get('edit-bookings/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editBookings'])->name('bookings.edit');
+    Route::post('edit-bookings/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateBookings'])->name('bookings.update');
+    Route::get('delete-bookings/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteBookings'])->name('bookings.delete');
+    
+
+
+    //food items
+    Route::get('all-foods}', [App\Http\Controllers\Admins\AdminsController::class, 'allFoods'])->name('all.foods');
+    Route::get('create-food}', [App\Http\Controllers\Admins\AdminsController::class, 'createFood'])->name('create.foods');
+    Route::post('create-food}', [App\Http\Controllers\Admins\AdminsController::class, 'storeFood'])->name('store.foods');
+    Route::get('delete-food/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteFood'])->name('delete.foods');
+
+    //search
+    Route::get('/search', [App\Http\Controllers\Admins\AdminsController::class, 'search']);
+
+});

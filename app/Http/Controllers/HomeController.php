@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Food\Food;
 use App\Models\Food\Review;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormMail;
 
 class HomeController extends Controller
 {
@@ -63,4 +64,75 @@ class HomeController extends Controller
 
         return view('pages.contact');
     }
+    public function sendEmail(Request $request)
+    {
+        Request ()->validate ([
+        "name"=> "required|max:40",
+        "email"=> "required|max:40",
+        "subject"=> "required|max:80",
+        "message"=> "required",]);
+    
+                
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+        ];
+
+        Mail::to('cephasadjetey1@gmail.com')->send(new ContactFormMail($data));
+        if($data){
+            return redirect()->route('contact')->with(['mail' =>'Your email has been sent successfully']);
+        }
+
+        //return "Email sent successfully!";
+    }
+
+
+
+
+
+
+
+
+    
+    
+
+
+    
+
+  
+
+
+    
+   
+    
+
 }
+
+
+    //public function sendEmail(Request $request)
+    //{
+    // Validate the form data
+    // $request->validate([
+    //     'name' => 'required',
+    //     'email' => 'required|email',
+    //     'subject' => 'required',
+    //     'message' => 'required',
+    // ]);
+    // $name =['name'=>$request->input('name')];
+    // $email =['email'=>$request->input('email')];
+    // $subject =['subject'=>$request->input('subject')];
+    // $message =['message'=>$request->input('message')];
+
+
+    
+
+    // Mail::to('cephasadjetey1@gmail.com')->send(new ContactFormMail($email,$name,$subject,$message));
+
+    // return "Email sent successfully!";
+     //}
+
+
+
+
