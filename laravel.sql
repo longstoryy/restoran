@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 05:16 PM
+-- Generation Time: Nov 28, 2023 at 06:48 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -114,7 +114,32 @@ INSERT INTO `checkout` (`id`, `name`, `email`, `town`, `country`, `zipcode`, `ph
 (7, 'cephas adjetey', 'cephasadjetey1@gmil.com', 'kasoa', 'Ghana', 233, 509956881, 'Kasoa', 4, 10, 'Delivered', '2023-11-02 07:43:52', '2023-11-02 07:46:57'),
 (8, 'cephas adjetey', 'cephasadjetey1@gmail.com', 'kasoa', 'Ghana', 233, 509956881, 'Kasoa', 4, 10, 'Processing', '2023-11-10 12:26:40', '2023-11-10 12:26:40'),
 (9, 'cephas adjetey', 'annadjetey1@gmail.com', 'kasoa', 'Ghana', 4555233, 509956881, 'hiuguyg', 4, 30, 'Processing', '2023-11-18 17:56:16', '2023-11-18 17:56:16'),
-(10, 'cephas adjetey', 'japhet@gmail.com', 'kasoa', 'Ghana', 23334, 509956881, 'Kasoa', 4, 30, 'Delivered', '2023-11-24 15:35:38', '2023-11-24 15:43:42');
+(10, 'cephas adjetey', 'japhet@gmail.com', 'kasoa', 'Ghana', 23334, 509956881, 'Kasoa', 4, 30, 'Delivering', '2023-11-24 15:35:38', '2023-11-28 03:37:39'),
+(11, 'asamoah', 'annadjetey1@gmail.com', 'kasoa', 'Ghana', 233, 509956881, 'Kasoa', 4, 10, 'Processing', '2023-11-28 04:58:51', '2023-11-28 04:58:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deliverydetails`
+--
+
+CREATE TABLE `deliverydetails` (
+  `id` int(10) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `phone_number` varchar(50) NOT NULL,
+  `status` varchar(200) NOT NULL DEFAULT 'busy',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deliverydetails`
+--
+
+INSERT INTO `deliverydetails` (`id`, `name`, `phone_number`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Vincent Doh', '02147483647', 'Active now', '2023-11-28 04:48:06', '2023-11-28 16:08:53'),
+(5, 'Francis Nii Boye', '0507197192', 'Busy', '2023-11-28 16:52:17', '2023-11-28 17:04:44'),
+(6, 'cephas adjetey', '0509956881', 'Active now', '2023-11-28 17:13:57', '2023-11-28 17:27:03');
 
 -- --------------------------------------------------------
 
@@ -300,6 +325,12 @@ ALTER TABLE `checkout`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `deliverydetails`
+--
+ALTER TABLE `deliverydetails`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -371,13 +402,19 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `checkout`
 --
 ALTER TABLE `checkout`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `deliverydetails`
+--
+ALTER TABLE `deliverydetails`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

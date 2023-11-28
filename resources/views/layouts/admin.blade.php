@@ -40,6 +40,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('bookings.all')}}" style="margin-left: 20px;">Bookings</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('delivery.all')}}" style="margin-left: 20px;">Deliver</a>
+          </li>
         </ul>
       @endauth
         <ul class="navbar-nav ml-md-auto d-md-flex">

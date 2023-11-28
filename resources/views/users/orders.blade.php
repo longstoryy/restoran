@@ -45,9 +45,11 @@
                     <td>{{$order->status}}</td>
                     @if($order->status == "Delivered")
                     <td><a href="{{route('users.review.create')}}" class="btn btn-success">review</a></td>
-                    @else
-                    <td>not available yet</td>
-                    @endif
+                  @elseif($order->status == "Delivering")
+                    <td><a href="{{route('delivery.details')}}" class="btn btn-primary">Agent Tel</a></td>
+                  @else
+                   <td>not available yet</td>
+                  @endif
                   </tr>    
                 @endforeach
               
@@ -55,5 +57,4 @@
           </table>
 
     </div>
-</div>    
 @endsection

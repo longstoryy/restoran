@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Food\Booking;
 use App\Models\Food\Checkout;
 use App\Models\Food\Review;
+use App\Models\Food\Details;
 
 use Auth;
 
@@ -26,6 +27,15 @@ class UsersController extends Controller
         return view('users.orders',compact('allOrders'));
        
     }
+    
+    Public function deliverDetails(){
+        $deliverDetails = Details::select()->orderBy('id','desc')->get();
+        return view('users.deliverydetail',compact('deliverDetails'));
+    }
+
+    
+
+       
     
     Public function viewReview(){
 

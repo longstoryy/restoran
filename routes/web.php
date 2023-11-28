@@ -61,6 +61,8 @@ Route::group(["prefix"=> "user"],function(){
     //users
     Route::get('/all-bookings', [App\Http\Controllers\Users\UsersController::class, 'getBookings'])->name('users.bookings');
     Route::get('/all-orders', [App\Http\Controllers\Users\UsersController::class, 'getOrders'])->name('users.orders');
+    //deliverydetails
+    Route::get('/delivery-details', [App\Http\Controllers\Users\UsersController::class, 'deliverDetails'])->name('delivery.details');
 
     //reviews
     Route::get('/write-review', [App\Http\Controllers\Users\UsersController::class, 'viewReview'])->name('users.review.create');
@@ -102,7 +104,16 @@ Route::group(["prefix"=> "admin","middleware"=>"auth:admin"],function(){
     Route::get('create-food}', [App\Http\Controllers\Admins\AdminsController::class, 'createFood'])->name('create.foods');
     Route::post('create-food}', [App\Http\Controllers\Admins\AdminsController::class, 'storeFood'])->name('store.foods');
     Route::get('delete-food/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteFood'])->name('delete.foods');
+    
+    //delivery
+    Route::get('all-delivery-details', [App\Http\Controllers\Admins\AdminsController::class, 'allDelivery'])->name('delivery.all');
+    Route::get('create-register}', [App\Http\Controllers\Admins\AdminsController::class, 'registerDelivery'])->name('register.delivery');
+    Route::post('create-register}', [App\Http\Controllers\Admins\AdminsController::class, 'deliveryDetails'])->name('store.delivery');
+    Route::get('delete-delivery/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteDelivery'])->name('delete.delivery');
+    Route::get('edit-delivery/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editDelivery'])->name('delivery.edit');
+    Route::post('edit-delivery/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateDelivery'])->name('delivery.update');
 
+    //delive
     //search
     Route::get('/search', [App\Http\Controllers\Admins\AdminsController::class, 'search']);
 

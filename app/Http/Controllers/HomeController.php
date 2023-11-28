@@ -80,7 +80,7 @@ class HomeController extends Controller
             'message' => $request->input('message'),
         ];
 
-        Mail::to('cephasadjetey1@gmail.com')->send(new ContactFormMail($data));
+        Mail::to('vincent.doh@outlook.com')->send(new ContactFormMail($data));
         if($data){
             return redirect()->route('contact')->with(['mail' =>'Your email has been sent successfully']);
         }

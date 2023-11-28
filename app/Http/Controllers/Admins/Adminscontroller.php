@@ -8,6 +8,7 @@ use App\Models\Food\Food;
 use App\Models\Admin\Admin;
 use App\Models\Food\Booking;
 use App\Models\Food\Checkout;
+use App\Models\Food\Details;
 use Illuminate\Support\Facades\Hash;
 use File;
 
@@ -186,6 +187,63 @@ class Adminscontroller extends Controller
         }
         
     }
+    public function allDelivery(){
+        $delivery = Details::select()->orderBy('id','desc')->get();
+        return view("admins.alldelivery",compact('delivery'));
+
+    }
+    public function registerDelivery(){
+        
+        return view("admins.createdelivery");
+    }
+    public function deliveryDetails(Request $request){
+        // Request ()->validate ([
+
+        //     "name"=> "required|max:40",
+        //     "email"=> "required|max:40",
+        //     "password"=> "required|max:80",
+            
+    
+        //     ]);
+        
+
+        $info =Details::create([
+            "name" =>$request->name,
+            "phone_number" =>$request->phone_number,
+    
+        ]);
+
+        if($info){
+            return redirect()->route('delivery.all')->with(['success' =>'New Delivery has been registered successfully']);
+        }
+        
+    }
+    public function editDelivery($id){
+
+        $order = Details::find($id);
+
+        return view("admins.editdelivery",compact('order'));
+    }
+    public function updateDelivery(Request $request,$id){
+
+        $order = Details::find($id);
+        $order->update($request->all());
+
+        if($order){
+            return redirect()->route('delivery.all')->with(['success' =>'Delivery info updated successfully']);
+        }
+    }
+    public function deleteDelivery($id){
+        $food = Details::find($id);
+        $food->delete();
+        if($food){
+            return redirect()->route('delivery.all')->with(['delete' =>'delivery personnel deleted successfully']);
+        }
+        
+    }
+    
+    
+    
     public function search(Request $request){
         $search=$request->search;
         $food = Food::where('name', 'Like','%'.$search.'%')->get();

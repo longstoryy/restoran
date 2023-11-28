@@ -45,7 +45,7 @@
                         <td>${{$order->price}}</td>
 
                         <td>{{$order->status}}</td>
-                        <td><a href="{{route('orders.edit',$order->id)}}" class="btn btn-warning text-white text-center ">change status</a></td>
+                        <td><a href="{{route('orders.edit',$order->id)}}" class="btn btn-secondary text-white text-center ">change status</a></td>
                         <td><a href="{{route('orders.delete',$order->id)}}" class="btn btn-danger  text-center ">delete</a></td>
                      </tr>   
                     @endforeach
