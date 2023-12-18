@@ -29,21 +29,21 @@
               </tr>
             </thead>
             <tbody>
-                @foreach($deliverDetails as $orders)
+                {{$delivery->name}}
                  <tr>
-                    <td>{{$orders->id}}</td>
-                    <td>{{$orders->name}}</td>
-                    <td>{{$orders->phone_number}}</td>
-                    @if($orders->status == "Busy")
-                    <td><button class="btn btn-warning text-white text-center" >{{$orders->status}}</button></td>
-                    @elseif($orders->status == "Choose Status")
-                    <td><button class="btn btn-primary text-white text-center" >{{$orders->status}}</button></td>
+                    <td>{{$delivery->id}}</td>
+                    <td>{{$delivery->name}}</td>
+                    <td>{{$delivery->phone_number}}</td>
+                    @if($delivery->status == "Busy")
+                    <td><button class="btn btn-warning text-white text-center" >{{$delivery->status}}</button></td>
+                    @elseif($delivery->status == "Choose Status")
+                    <td><button class="btn btn-primary text-white text-center" >{{$delivery->status}}</button></td>
                         @else
-                    <td><button class="btn btn-success text-white text-center" >{{$orders->status}}</button></td>
+                    <td><button class="btn btn-success text-white text-center" >{{$delivery->status}}</button></td>
                 @endif
 
                  </tr>
-                @endforeach
+                
 
 
             </tbody>

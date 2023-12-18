@@ -5,7 +5,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title mb-5 d-inline">Create Food Items</h5>
+          <h5 class="card-title mb-5 d-inline">Register New Delivery Agent</h5>
       <form method="POST" action="{{route('store.delivery')}}" enctype="multipart/form-data">
         @csrf
             <!-- Email input -->

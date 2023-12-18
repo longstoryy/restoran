@@ -197,14 +197,11 @@ class Adminscontroller extends Controller
         return view("admins.createdelivery");
     }
     public function deliveryDetails(Request $request){
-        // Request ()->validate ([
+        Request ()->validate ([
 
-        //     "name"=> "required|max:40",
-        //     "email"=> "required|max:40",
-        //     "password"=> "required|max:80",
-            
-    
-        //     ]);
+            "name"=> "required|max:40",
+            "phone_number"=> "required|max:40",
+        ]);
         
 
         $info =Details::create([
@@ -241,13 +238,19 @@ class Adminscontroller extends Controller
         }
         
     }
+     public function selectDelivery($id){
+        $delivery = Details::find($id);
+        $delivery->select()->orderBy('id','desc')->get();
+        return view("users.deliverydetail",compact('delivery'));
+    }
+
     
     
     
     public function search(Request $request){
         $search=$request->search;
-        $food = Food::where('name', 'Like','%'.$search.'%')->get();
-        return view("admins.allfoods",compact('food'));
+        $foods= Food::where('name', 'Like','%'.$search.'%')->get();
+        return view("admins.search",compact('foods'));
     }
     
     

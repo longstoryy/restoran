@@ -64,13 +64,16 @@ class HomeController extends Controller
 
         return view('pages.contact');
     }
-    public function sendEmail(Request $request)
-    {
+    public function sendEmail(Request $request){
         Request ()->validate ([
-        "name"=> "required|max:40",
-        "email"=> "required|max:40",
-        "subject"=> "required|max:80",
-        "message"=> "required",]);
+
+            "name"=> "required|max:40",
+            "email"=> "required|email",
+            "subject"=> "required|max:50",
+            "message"=> "required|",
+
+
+        ]);
     
                 
         $data = [

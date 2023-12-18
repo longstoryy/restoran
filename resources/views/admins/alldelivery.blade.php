@@ -49,6 +49,8 @@
                     <td>{{$deliver->created_at}}</td>
                     <td><a href="{{route('delivery.edit',$deliver->id)}}" class="btn btn-secondary text-white text-center ">change status</a></td>
                      <td><a href="{{route('delete.delivery',$deliver->id)}}" class="btn btn-danger  text-center ">delete</a></td>
+                     <td><a href="{{route('select.delivery',$deliver->id)}}" class="btn btn-danger  text-center ">select</a></td>
+
                   </tr>  
                 @endforeach
 

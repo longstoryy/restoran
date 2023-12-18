@@ -116,5 +116,6 @@ Route::group(["prefix"=> "admin","middleware"=>"auth:admin"],function(){
     //delive
     //search
     Route::get('/search', [App\Http\Controllers\Admins\AdminsController::class, 'search']);
+    Route::get('selectorders/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'selectDelivery'])->name('select.delivery');
 
 });
